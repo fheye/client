@@ -23,7 +23,7 @@ export default function Dashboard() {
                     {formatWalletAddress(walletAddress)}
                 </span>
             </div>
-            <div className="grid grid-cols-2 gap-4 p-4 w-full">
+            <div className="grid grid-cols-2 gap-4 p-4 w-full border-2 border-gray">
                 {cardData.map((data, index) => (
                     <Card key={index} title={data.title} description={data.description} height="h-[28dvh]" />
                 ))}
