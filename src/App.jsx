@@ -5,6 +5,9 @@ import Landing from "./pages/landing/index.jsx";
 import Footer from "./components/Footer.jsx";
 import './styles/output.css'
 import ScrollToTop from './components/ScrollToTop.jsx'
+import Uploader from './pages/uploader/index.jsx';
+import Map from './pages/map/index.jsx';
+import Dashboard from './pages/dashboard/index.jsx';
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
           <Navbar />
           <Routes>
               <Route path='/' element={<Landing />} />
+              <Route path='/img' element={<Uploader />} />
+              <Route path='/map' element={<Map />} />
+              <Route path='/dashboard' element={<Dashboard />} />
           </Routes>
           <Footer />
       </BrowserRouter>
