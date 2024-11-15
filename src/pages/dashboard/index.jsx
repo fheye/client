@@ -18,13 +18,14 @@ export default function Dashboard() {
 
     return (
         <Layout>
-            <span className="block text-xl font-semibold text-gray-600 mb-4">
-                {formatWalletAddress(walletAddress)}
-            </span>
-
+            <div className='w-full text-left'>
+                <span className="block text-3xl font-semibold text-white mb-4 ml-4">
+                    {formatWalletAddress(walletAddress)}
+                </span>
+            </div>
             <div className="grid grid-cols-2 gap-4 p-4 w-full">
                 {cardData.map((data, index) => (
-                    <Card key={index} title={data.title} description={data.description} />
+                    <Card key={index} title={data.title} description={data.description} height="h-[28dvh]" />
                 ))}
             </div>
         </Layout>

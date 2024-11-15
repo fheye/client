@@ -8,6 +8,7 @@ import ScrollToTop from './components/ScrollToTop.jsx'
 import Uploader from './pages/uploader/index.jsx';
 import Map from './pages/map/index.jsx';
 import Dashboard from './pages/dashboard/index.jsx';
+import FaceDetector from './pages/facedetector/index.jsx';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path='/img' element={<Uploader />} />
               <Route path='/map' element={<Map />} />
               <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/facedetection' element={<FaceDetector />} />
           </Routes>
           <Footer />
       </BrowserRouter>

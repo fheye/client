@@ -1,10 +1,10 @@
 import '../../styles/output.css'
 import { useState } from "react";
-import ImageUpload from './imgUpload';
+import ImageUpload from '../uploader/imgUpload';
 import Layout from '../../components/Layout';
 import Card from '../../components/Card';
 
-export default function Uploader() {
+export default function FaceDetector() {
     const [images, setImages] = useState([]);
     const handleSubmit = () => {
         console.log("images submitted", images);

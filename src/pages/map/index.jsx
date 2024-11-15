@@ -1,6 +1,7 @@
 import '../../styles/output.css'
 import '../../styles/map.css'
 import MapBox from './map'
+import Layout from '../../components/Layout';
 
 export default function Map() {
     const bangkokCenter = {
@@ -12,7 +13,7 @@ export default function Map() {
         const radius = 0.5;
         const random_angle = Math.random() * Math.PI * 2;
         const random_radius = Math.sqrt(Math.random()) * radius;
-        
+
         return {
             lat: bangkokCenter.lat + (random_radius * Math.cos(random_angle)),
             lng: bangkokCenter.lng + (random_radius * Math.sin(random_angle))
@@ -29,5 +30,7 @@ export default function Map() {
         };
     });
 
-    return <MapBox id="map-container" coordinates={coordinates} />
+    return <Layout>
+            <MapBox id="map-container" coordinates={coordinates} />
+        </Layout>
 }
