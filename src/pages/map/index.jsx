@@ -2,9 +2,10 @@ import '../../styles/output.css'
 import '../../styles/map.css'
 import MapBox from './map'
 import Layout from '../../components/Layout'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faChevronRight, faChevronLeft, faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
+import { getCloseCriminals } from '../../utils'
 
 const EmojiStates = {
     HAPPY: "HAPPY",
@@ -13,41 +14,48 @@ const EmojiStates = {
 };
 
 export default function Map() {
-    const bangkokCenter = {
-        lat: 13.7563,
-        lng: 100.5018,
-    }
-
-    const generateRandomCoordinate = () => {
-        const radius = 0.5
-        const random_angle = Math.random() * Math.PI * 2
-        const random_radius = Math.sqrt(Math.random()) * radius
-
-        return {
-            lat: bangkokCenter.lat + random_radius * Math.cos(random_angle),
-            lng: bangkokCenter.lng + random_radius * Math.sin(random_angle),
-        }
-    }
-
-    const coordinates = Array.from({ length: 10 }, (_, i) => {
-        const randomCoord = generateRandomCoordinate()
-        return {
-            lat: randomCoord.lat,
-            lng: randomCoord.lng,
-            title: `Location ${i + 1}`,
-            body: `This is location ${i + 1} in Bangkok`,
-        }
-    })
-
     const [isExpanded, setIsExpanded] = useState(false);
-
     const [emojiState, setEmojiState] = useState(EmojiStates.HAPPY);
+    const [coordinates, setCoordinates] = useState([]);
+    const [userLocation, setUserLocation] = useState(null);
 
     const emojiIcons = {
         [EmojiStates.HAPPY]: faFaceSmileBeam,
         [EmojiStates.NORMAL]: faFaceMeh,
         [EmojiStates.SAD]: faFaceFrown,
     };
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords
+                    setUserLocation([longitude, latitude])
+
+                    let latitudeInt = Math.round(position.coords.latitude * 100)
+                    let longitudeInt = Math.round(position.coords.longitude * 100)
+
+                    getCloseCriminals(longitudeInt, latitudeInt, 100000).then((data) => {
+                        console.log(data)
+                        setCoordinates(
+                            data.map((item) => ({
+                                lng: item.locationX,
+                                lat: item.locationY,
+                                title: 'Criminal',
+                                body: `Last seen: ${new Date(item.timestamp).toLocaleString()}`,
+                            }))
+                        )
+                    })
+                },
+                (error) => {
+                    console.error('Error getting user location:', error)
+                }
+            )
+        } else {
+            console.error('Geolocation is not supported by this browser.')
+        }
+    }, [])
+
     return (
         <Layout>
             <div className='flex flex-col justify-center items-center w-full h-full'>

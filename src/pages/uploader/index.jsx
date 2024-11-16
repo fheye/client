@@ -69,8 +69,8 @@ export default function Uploader() {
 
         // location, timestamp
         const location = await getLocation();
-        location.lat = Math.round(location.lat);
-        location.lng = Math.round(location.lng);
+        location.lat = Math.round(location.lat * 100);
+        location.lng = Math.round(location.lng * 100);
 
         const timestamp = new Date().getTime();
 

@@ -5,7 +5,7 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
 })
 
-export async function getCloseCriminalCount(locationX, locationY, distance) {
+export async function getCloseCriminals(locationX, locationY, distance) {
     try {
         const GET_REVEALED_IMAGES = gql`
             query GetRevealedImagesByLocation($minX: BigInt!, $maxX: BigInt!, $minY: BigInt!, $maxY: BigInt!) {
