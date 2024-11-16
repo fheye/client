@@ -94,6 +94,25 @@ export default function MapBox({ coordinates = [] }) {
         }
     }, [coordinates])
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (mapRef.current) {
+                mapRef.current.resize();
+            }
+        };
+
+        const resizeObserver = new ResizeObserver(() => handleResize());
+        if (mapContainerRef.current) {
+            resizeObserver.observe(mapContainerRef.current);
+        }
+
+        return () => {
+            if (mapRef.current) mapRef.current.remove();
+            if (resizeObserver) resizeObserver.disconnect();
+        };
+    }, []);
+
+
     return (
         <>
             {center && (
