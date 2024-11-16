@@ -6,7 +6,11 @@ export default function Landing() {
         <div className='w-full h-full flex flex-col justify-center items-center text-customWhite'>
             <div className='w-1/2 h-[70dvh] flex justify-center items-center m-4'>
                 <Link to='/map' className='w-[40%] h-full rounded-xl px-4 m-4 bg-dashboardGradient shadow-dashboard-shadow flex items-end justify-center'>
-                    {/* <img src='src/assets/icons/map_icon.png' alt='map' /> */}
+                    <img
+                        src='src/assets/icons/map_photo.png'
+                        alt='map'
+                        className='w-full h-full object-cover rounded-xl mix-blend-difference'
+                    />
                 </Link>
                 <div className='w-[60%] h-full rounded-xl px-4 relative m-4 bg-dashboardGradient shadow-dashboard-shadow flex flex-col justify-evenly items-center'>
                     <div className='flex flex-col text-xl text-center'>

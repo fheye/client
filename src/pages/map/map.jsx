@@ -21,8 +21,8 @@ export default function MapBox({ coordinates = [] }) {
             container: mapContainerRef.current,
             center,
             zoom: INITIAL_ZOOM,
+            style: 'mapbox://styles/mapbox/dark-v11',
         })
-
         mapRef.current = map
 
         if (userLocationAvailable) {

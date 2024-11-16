@@ -690,6 +690,11 @@ video {
   margin-bottom: 2rem;
 }
 
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -944,6 +949,10 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 
 .rounded {
@@ -1227,6 +1236,10 @@ video {
 
 .opacity-80 {
   opacity: 0.8;
+}
+
+.mix-blend-difference {
+  mix-blend-mode: difference;
 }
 
 .mix-blend-luminosity {
