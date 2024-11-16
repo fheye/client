@@ -6,9 +6,12 @@
     :root {
         --color-emoji-light: #F9DBBA;
         --color-emoji-dark: #1F316F;
+        --color-custom-light: #D9D9D9;
+        --color-custom-dark: #1F316F;
+        --color-bg-dark: #0B0000;
     }
 }
 
 :root {
-    background-color: rgb(17 24 39);
+    background-color: #0B0000;
 }

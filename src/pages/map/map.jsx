@@ -96,28 +96,36 @@ export default function MapBox({ coordinates = [] }) {
 
     useEffect(() => {
         const handleResize = () => {
-            if (mapRef.current) {
-                mapRef.current.resize();
+            if (mapRef?.current) {
+                try {
+                    mapRef.current.resize();
+                } catch (error) {
+                }
             }
         };
-
         const resizeObserver = new ResizeObserver(() => handleResize());
         if (mapContainerRef.current) {
             resizeObserver.observe(mapContainerRef.current);
         }
 
         return () => {
-            if (mapRef.current) mapRef.current.remove();
+            if (mapRef?.current) {
+                try {
+                    mapRef.current.remove();
+                } catch (error) {
+                }
+            }
             if (resizeObserver) resizeObserver.disconnect();
         };
     }, []);
+
 
 
     return (
         <>
             {center && (
                 <div className="sidebar">
-                    Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
+                    Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)}
                 </div>
             )}
             <div id="map-container" ref={mapContainerRef} />

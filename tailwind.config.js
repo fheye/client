@@ -15,6 +15,7 @@ module.exports = {
             colors: {
                 customLight: '#D9D9D9',
                 customDark: '#1F316F',
+                bgDark: '#0B0000',
             },
         },
     },

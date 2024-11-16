@@ -39,7 +39,7 @@ export default function Map() {
         }
     })
 
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const [emojiState, setEmojiState] = useState(EmojiStates.HAPPY);
 
@@ -55,7 +55,7 @@ export default function Map() {
                     className={`relative w-full h-[70dvh] flex justify-center items-center bg-dark-blue transition-all duration-300`}
                 >
                     <div
-                        className={`p-2 mr-4 rounded-xl ${isExpanded ? 'w-[70%]' : 'w-[38%]'} h-full transition-all duration-300 bg-customDark text-customDark relative `}
+                        className={`p-2 mr-4 rounded-xl ${isExpanded ? 'w-[70%]' : 'w-[38%]'} h-full transition-all duration-300 bg-bgDark text-bgDark relative `}
 
                     >
                         <MapBox id="map-container" coordinates={coordinates} />
@@ -81,7 +81,7 @@ export default function Map() {
                         </button>
                     </div>
                     <div
-                        className={`h-full p-4 text-center text-2xl rounded-xl flex flex-col bg-customDark text-customLight  justify-around items-start transition-all duration-300 ${isExpanded ? 'w-[30%]' : 'w-[62%]'
+                        className={`h-full p-4 text-center text-2xl rounded-xl flex flex-col bg-bgDark text-customLight  justify-around items-start transition-all duration-300 ${isExpanded ? 'w-[30%]' : 'w-[62%]'
                             }`}
                     >
                         <div className='w-full'>
@@ -111,7 +111,7 @@ export default function Map() {
                         </div>
                     </div>
                 </div>
-                <button className="relative m-4 w-full h-[15dvh] rounded-xl bg-customLight text-customDark text-2xl flex items-center">
+                <button className="relative m-4 w-full h-[15dvh] rounded-xl bg-customLight text-bgDark text-2xl flex items-center">
                     <div className="absolute left-12">
                         <FontAwesomeIcon icon={faCircleArrowRight} size="2x" style={{ color: "var(--color-emoji-dark)", stroke: "var(--color-emoji-dark)" }} />
                     </div>

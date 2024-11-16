@@ -55,7 +55,7 @@ export default function FaceDetector() {
 
     return (
         <Layout>
-            <div className='relative w-full h-[70dvh] p-2 border-2 border-gray flex justify-center items-center'>
+            <div className='relative w-full h-[70dvh] p-2 flex justify-center items-center'>
                 <div className="w-1/2 h-full p-2">
                     {images.length === 0 && (
                         <div className="w-full h-full flex flex-row justify-center items-center">

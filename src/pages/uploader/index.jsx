@@ -87,36 +87,26 @@ export default function Uploader() {
 
     return (
         <Layout>
-            <div className='relative w-full h-[70dvh] p-2 border-2 border-gray flex justify-center items-center'>
-                <div className='w-1/2 h-full p-2'>
-                    <ImageUpload images={images} setImages={setImages} />
-                    <div className="w-full h-[20dvh]  flex flex-row justify-center items-center">
-                        {images.map((image, index) => (
-                            <div
-                                key={index}
-                                className="relative w-auto h-[10dvh] overflow-hidden border rounded-md"
-                            >
-                                <img
-                                    src={image.preview}
-                                    alt="uploaded preview"
-                                    className="object-cover h-full w-full"
-                                />
-                            </div>
-                        ))}
+            <div className='w-full h-[74dvh] p-2 flex justify-center items-center'>
+                <div className='w-[20dvw] h-full p-2 my-4 text-customLight flex flex-col justify-center items-center relative'>
+                    <div className='flex flex-col text-3xl absolute right-[4rem] top-[11rem]'>
+                        <span>YOUR</span>
+                        <span>SAFETY</span>
+                        <span>IS THE KEY</span>
                     </div>
+                    <img src='src/assets/icons/key.png' alt='key' className='w-full h-auto px-8' />
+                    <span className='text-lg text-right w-full'>YOUR SAFETY IS THE KEY</span>
                 </div>
-                <div className="w-1/2 h-full space-y-4 p-2">
-                    <Card title="Information-1" description="Description-1" height="h-[18dvh]" />
-                    <Card title="Information-1" description="Description-1" height="h-[18dvh]" />
-                    <Card title="Information-1" description="Description-1" height="h-[18dvh]" />
+                <div className='w-[15dvw] h-full p-2 my-4'>
+                    <ImageUpload images={images} setImages={setImages} />
+                    <button
+                        onClick={handleSubmit}
+                        className="bg-customLight w-full text-customDark text-xl px-4 py-2 my-2 rounded-lg hover:bg-blue-600 transition"
+                    >
+                        Submit
+                    </button>
                 </div>
-                <button
-                    onClick={handleSubmit}
-                    className="absolute w-1/4 bottom-2 left-1/2 transform -translate-x-1/2  bg-blue-500 text-white text-xl px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-                >
-                    Submit
-                </button>
             </div>
-        </Layout>
+        </Layout >
     );
 }
