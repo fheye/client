@@ -5,7 +5,7 @@ module.exports = {
         extend: {
             backgroundImage: {
                 'custom-gradient': 'linear-gradient(180deg, rgba(0, 10, 122, 0.2) 0%, rgba(0, 71, 179, 0.2) 100%)',
-                'dashboardGradient': 'linear-gradient(180deg, rgb(245 239 239 / 79%) 0%, rgb(0 0 0) 100%)',
+                'dashboardGradient': 'linear-gradient(229deg, rgb(205 205 205 / 79%) 0%, rgb(4 4 4) 100%)',
               },
             maxWidth: {
                 "1250p": "1250px"

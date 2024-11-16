@@ -58,6 +58,16 @@ export default function Map() {
 
     return (
         <div className='flex flex-col justify-center items-center w-full h-full'>
+            <video
+                className="absolute top-0 left-0 w-full h-full object-cover rounded-lg mix-blend-lighten"
+                autoPlay
+                loop
+                muted
+                playsInline
+            >
+                <source src="src/assets/videos/greenbg.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
             <div
                 className={`relative w-full h-[70dvh] flex justify-center items-center bg-dark-blue transition-all duration-300`}
             >
@@ -67,7 +77,7 @@ export default function Map() {
                 >
                     <MapBox id="map-container" coordinates={coordinates} />
                 </div>
-                <div className='w-[20%] h-full rounded-xl px-4 relative m-4 bg-dashboardGradient shadow-dashboard-shadow flex flex-col justify-evenly items-center'>
+                <div className='w-[20%] h-full rounded-xl px-4 relative m-4 bg-dashboardGradient shadow-dashboard-shadow flex flex-col justify-evenly items-center text-customWhite'>
                     <div className='flex flex-col text-xl text-center'>
                         <span>YOUR SAFETY</span>
                         <span>SCORE NOW</span>

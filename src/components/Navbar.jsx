@@ -53,9 +53,6 @@ export default function Navbar() {
                 <NavLink to="/" className={({ isActive }) =>
                     isActive ? "text-white" : "text-white"
                 }>Home</NavLink>
-                <NavLink to="/dashboard" className={({ isActive }) =>
-                    isActive ? "text-white" : "text-white"
-                }>Dashboard</NavLink>
                 <NavLink to="/img" className={({ isActive }) =>
                     isActive ? "text-white" : "text-white"
                 }>Image Upload</NavLink>
