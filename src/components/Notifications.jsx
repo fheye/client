@@ -4,6 +4,7 @@ import { PushAPI, CONSTANTS } from '@pushprotocol/restapi';
 
 export default function Notifications() {
     const [notifications, setNotifications] = useState([]);
+    let userAlice = null;
 
     async function fetchNotifications() {
         const provider = new ethers.BrowserProvider(window.ethereum);
@@ -13,12 +14,9 @@ export default function Notifications() {
 
         console.log('address:', address);
 
-        const userAlice = await PushAPI.initialize(
-            signer,
-            {
-                env: CONSTANTS.ENV.STAGING,
-            }
-        );
+        if (!userAlice) {
+            userAlice = await PushAPI.initialize(signer, { env: CONSTANTS.ENV.STAGING });
+        }
 
         if (userAlice.errors.length > 0) {
             console.error('Error initializing userAlice:', userAlice.errors);
@@ -39,7 +37,7 @@ export default function Notifications() {
     if (!notifications || notifications.length <= 0) {
         return (
             <div className="bg-customWhite rounded-xl p-4 max-h-[40dvh] w-[30dvw] overflow-y-auto">
-                <span className="text-sm font-bold text-gray-900">There is no Notifications...</span>
+                <span className="text-sm font-bold text-gray-900">There are no notifications...</span>
             </div>
         )
     }
