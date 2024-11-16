@@ -40,31 +40,41 @@ export default function Navbar() {
                 <Link to='/' href="" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="/icons/logo.png" alt="logo" /> <span className="text-white text-xl">fheye</span>
                 </Link>
-                <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    {
-                        walletAddress &&
-                        <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                            <span className="text-sm font-medium text-gray-900 ">{walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</span>
-                            <button onClick={onDisconnectWallet} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Disconnect</button>
-                        </div>
-                    }
-                    {
-                        !walletAddress &&
-                        <button onClick={onConnectWallet} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Connect Wallet</button>
-                    }
+                <div className="flex flex-row items-center md:order-2 space-x-6">
+                    <NavLink to="/" className={({ isActive }) =>
+                        isActive ? "text-white" : "text-white"
+                    }>Home</NavLink>
+                    <NavLink to="/img" className={({ isActive }) =>
+                        isActive ? "text-white" : "text-white"
+                    }>Submit</NavLink>
+                    <NavLink to="/map" className={({ isActive }) =>
+                        isActive ? "text-white" : "text-white"
+                    }>Map</NavLink>
+                    <NavLink to="/facedetection" className={({ isActive }) =>
+                        isActive ? "text-white" : "text-white"
+                    }>Detection</NavLink>
+                    <div className="group flex items-center space-x-3 rtl:space-x-reverse">
+                        <button
+                            onClick={walletAddress ? onDisconnectWallet : onConnectWallet}
+                            type="button"
+                            className="group-hover:inline text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                        >
+                            {
+                                walletAddress && (
+                                    <div className="flex items-center space-x-2">
+                                        Disconnect
+                                    </div>
+                                )
+                            }
+                            {
+                                !walletAddress &&
+                                <div className="flex items-center space-x-2">
+                                    Connect Wallet
+                                </div>
+                            }
+                        </button>
+                    </div>
                 </div>
-                <NavLink to="/" className={({ isActive }) =>
-                    isActive ? "text-white" : "text-white"
-                }>Home</NavLink>
-                <NavLink to="/img" className={({ isActive }) =>
-                    isActive ? "text-white" : "text-white"
-                }>Image Upload</NavLink>
-                <NavLink to="/map" className={({ isActive }) =>
-                    isActive ? "text-white" : "text-white"
-                }>Map</NavLink>
-                <NavLink to="/facedetection" className={({ isActive }) =>
-                    isActive ? "text-white" : "text-white"
-                }>Face Detection</NavLink>
             </div>
         </nav>
     )

@@ -20,10 +20,10 @@ export default function ImageUpload({ setImages }) {
     });
 
     return (
-        <div className="flex flex-col items-center w-full h-2/3 mt-20 rounded-xl ">
+        <div className="flex flex-col items-center w-full h-full rounded-xl ">
             <div
                 {...getRootProps()}
-                className={`relative p-4 flex flex-col items-center justify-center w-full h-full cursor-pointer shadow-video bg-[#ffffff]  rounded-lg`}
+                className={`relative p-4 flex flex-col items-center justify-center w-full h-full cursor-pointer bg-[#ffffff]  rounded-lg`}
             >
 
                 <video
@@ -38,7 +38,6 @@ export default function ImageUpload({ setImages }) {
                 </video>
                 <input {...getInputProps()} />
                 <div className='w-full h-full relative'>
-                    <img src='/icons/arrow 1.png' alt='arrow' className='absolute bottom-8 left-1/2 transform -translate-x-1/2' />
                     <p className='text-xl absolute bottom-24 left-1/2 transform -translate-x-1/2 -rotate-90 text-customWhite opacity-8'>{'upload'}</p>
                 </div>
             </div>

@@ -107,7 +107,7 @@ export default function Uploader() {
     }
 
     return (
-        <div className='w-full h-full flex justify-center items-center relative bg-white '>
+        <div className='w-full h-full flex justify-center items-center space-x-8 relative bg-white '>
             <video
                 className="absolute top-0 left-0 w-full h-full object-cover opacity-80"
                 autoPlay
@@ -118,15 +118,16 @@ export default function Uploader() {
                 <source src="/bluebg.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
-            <div className='w-[20dvw] h-full p-2 my-4 text-customLight flex flex-col justify-center items-center relative'>
-                <div className='flex flex-col text-4xl absolute right-[10%] top-[27%]'>
-                    <span>YOUR SAFETY</span>
+            <div className='w-[20dvw] bg-[#41467f] bg-opacity-60 h-1/2 pt-28 pb-0 px-16 my-4 text-customLight flex flex-col justify-center relative'>
+                <div className='flex flex-col text-2xl leading-5 '>
+                    <span>YOUR</span>
+                    <span>SAFETY</span>
                     <span>IS THE KEY.</span>
                 </div>
-                <img src='/icons/key.png' alt='key' className='w-full h-auto px-8' />
-                <span className='text-xs absolute right-[10%] bottom-[36%]'>YOUR SAFETY IS THE KEY</span>
+                <img src='/icons/key.png' alt='key' className='w-full h-auto' />
+                <span className='text-xs mt-auto mb-6 mx-auto'>YOUR SAFETY IS THE KEY</span>
             </div>
-            <div className='w-[15dvw] h-full p-2 mt-24'>
+            <div className='w-[15dvw] h-1/2 flex flex-col'>
                 <ImageUpload images={images} setImages={setImages} />
                 <button
                     onClick={handleSubmit}

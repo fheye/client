@@ -151,11 +151,11 @@ export default function FaceDetector() {
                             Reveal Metadata
                         </button>
                     </div>
-                    <div className='w-[15dvw] h-full p-2 mt-24'>
+                    <div className='w-[15dvw] h-1/2 px-4'>
                         <ImageUpload images={images} setImages={setImages} />
                         <button
                             onClick={handleSubmit}
-                            className="bg-customLight w-full text-customWhite text-xl px-4 py-2 my-2 rounded-lg relative shadow shadow-video bg-[#ffffff] rounded-lg"
+                            className="bg-customLight w-full text-customWhite text-xl px-4 py-2 my-2 rounded-lg relative bg-[#ffffff] rounded-lg"
                         >
                             <video
                                 className="absolute top-0 left-0 w-full h-full object-cover rounded-lg mix-blend-luminosity"

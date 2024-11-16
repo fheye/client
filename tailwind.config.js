@@ -6,9 +6,10 @@ module.exports = {
         extend: {
             backgroundImage: {
                 'custom-gradient': 'linear-gradient(180deg, rgba(0, 10, 122, 0.2) 0%, rgba(0, 71, 179, 0.2) 100%)',
-                'dashboardGradient': 'linear-gradient(229deg, rgb(78 76 76 / 79%) 0%, rgb(4 4 4) 100%)',
-                'facedetectionGradient': 'radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.98) 100%)'
-            },
+                'dashboardGradient': 'linear-gradient(229deg, rgb(205 205 205 / 79%) 0%, rgb(4 4 4) 100%)',
+                'facedetectionGradient': 'radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.98) 100%)',
+                'uploadGradient': 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0) 100%)'
+              },
             maxWidth: {
                 "1250p": "1250px"
             },
@@ -20,7 +21,6 @@ module.exports = {
                 'video': '0px 4px 13.1px 5px #000839',
                 'dashboard-shadow': '0px 4px 6.5px 0px #00000040',
                 'facedetector-shadow': '0px 4px 6.5px 0px #00000040',
-
             },
             colors: {
                 customLight: '#D9D9D9',
