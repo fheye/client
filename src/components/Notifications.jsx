@@ -1,32 +1,17 @@
-import { ethers } from 'ethers'
 import { useEffect, useState } from 'react';
 import { PushAPI, CONSTANTS } from '@pushprotocol/restapi';
 
-export default function Notifications() {
+export default function Notifications({ pushUser }) {
     const [notifications, setNotifications] = useState([]);
-    let userAlice = null;
 
     async function fetchNotifications() {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-
-        const address = await signer.getAddress();
-
-        console.log('address:', address);
-
-        if (!userAlice) {
-            userAlice = await PushAPI.initialize(signer, { env: CONSTANTS.ENV.STAGING });
-        }
-
-        if (userAlice.errors.length > 0) {
-            console.error('Error initializing userAlice:', userAlice.errors);
+        if (pushUser.errors.length > 0) {
+            console.error('Error initializing pushUser:', pushUser.errors);
             return;
         }
 
-        const inboxNotifications = await userAlice.notification.list('INBOX');
-
+        const inboxNotifications = await pushUser.notification.list('INBOX');
         console.log('inboxNotifications:', inboxNotifications);
-
         setNotifications(inboxNotifications.data);
     }
 

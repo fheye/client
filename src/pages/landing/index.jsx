@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
+import { ethers } from 'ethers'
 import '../../styles/output.css'
 import { useState, useEffect } from 'react'
 import Notifications from '../../components/Notifications';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
-import { getCloseCriminalCount, getCloseCriminals, getSafetyScore, getUserDetectedCriminalCount, getUserRevealedImageCount, getUserUploadedImageCount } from '../../utils'
+import { PushAPI, CONSTANTS } from '@pushprotocol/restapi';
+import { getSafetyScore } from '../../utils'
+
 const EmojiStates = {
     HAPPY: "HAPPY",
     NORMAL: "NORMAL",
@@ -14,6 +17,30 @@ const EmojiStates = {
 export default function Landing() {
     const [notificationActive, setNotificationActive] = useState(false);
     const [emojiState, setEmojiState] = useState(EmojiStates.NORMAL);
+    const [pushUser, setPushUser] = useState(null);
+    let initializingPushUser = false;
+
+    async function initializePushUser(params) {
+        initializingPushUser = true;
+
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+
+        const pushUser = await PushAPI.initialize(
+            signer,
+            {
+                env: CONSTANTS.ENV.STAGING,
+            }
+        );
+        
+        setPushUser(pushUser);
+        initializingPushUser = false;
+    }
+
+    useEffect(() => {
+        if (pushUser !== null || initializingPushUser) return;
+        initializePushUser();
+    }, []);
 
     const emojiIcons = {
         [EmojiStates.HAPPY]: faFaceSmileBeam,
@@ -100,7 +127,7 @@ export default function Landing() {
                         className={`w-[40px] h-[40px] object-contain ${notificationActive ? 'ml-auto pr-4' : ''}`}
                     />
                     <div className='absolute left-0 bottom-[10dvh]'>
-                        {notificationActive && <Notifications />}
+                        {notificationActive && pushUser != null && <Notifications pushUser={pushUser} />}
                     </div>
                 </div>
 
