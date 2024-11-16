@@ -5,10 +5,12 @@ import Layout from '../../components/Layout';
 import FaceDetectionArtifact from "../../../abi/FaceDetection.json"
 
 import { ethers } from 'ethers'
+import RandomDecimalGrid from '../../components/RandomGrid';
 
 export default function FaceDetector() {
     const [images, setImages] = useState([]);
     const [embedding, setEmbedding] = useState([]);
+    const [hasMatch, setHasMatch] = useState(false);
 
     async function handleSubmit () {
         await getEmbeddingOfImage(images[0]);
@@ -55,13 +57,19 @@ export default function FaceDetector() {
 
     return (
         <Layout>
-            <div className='relative w-full h-[70dvh] p-2 flex justify-center items-center'>
-                <div className="w-1/2 h-full p-2">
+            <div className='relative w-full h-[70dvh] p-2 border-2 border-gray flex justify-center items-center'>
+                <div className="w-1/2 p-2 space-y-4 flex flex-col items-center">
                     {images.length === 0 && (
                         <div className="w-full h-full flex flex-row justify-center items-center">
                             <ImageUpload images={images} setImages={setImages} />
                         </div>
                     )}
+                     <button
+                        onClick={handleSubmit}
+                        className="bg-blue-500 text-white text-xl px-8 py-2 rounded-lg hover:bg-blue-600 transition w-1/2 h-[8dvh]"
+                    >
+                        Submit
+                    </button>
                     {images.length > 0 && (
                         <div className="w-full h-full flex flex-row justify-center items-center relative">
                             {images.map((image, index) => (
@@ -91,26 +99,21 @@ export default function FaceDetector() {
                 </div>
 
                 <div className="w-1/2 h-full p-6 flex flex-col justify-evenly items-center">
-                    <button
-                        onClick={handleSubmit}
-                        className="bg-blue-500 text-white text-xl px-8 py-2 rounded-lg hover:bg-blue-600 transition w-full h-[8dvh]"
-                    >
-                        JSFHDS Input
-                    </button>
-                    <button
-                        onClick={handleSubmit}
-                        className="bg-blue-500 text-white text-xl px-8 py-2 rounded-lg hover:bg-blue-600 transition w-full h-[8dvh]"
-                    >
-                        Generate Proof
-                    </button>
-                    <button
-                        onClick={handleSubmit}
-                        className="bg-blue-500 text-white text-xl px-8 py-2 rounded-lg hover:bg-blue-600 transition w-full h-[8dvh]"
-                    >
-                        Submit
-                    </button>
+                    {
+                        hasMatch && 
+                        <RandomDecimalGrid />
+                    }
+                    {
+                        hasMatch &&
+                        <button
+                            onClick={handleSubmit}
+                            className="bg-blue-500 text-white text-xl px-8 py-2 rounded-lg hover:bg-blue-600 transition w-1/2 h-[8dvh]"
+                        >
+                            Reveal Metadata
+                        </button>
+                    }
                 </div>
             </div>
         </Layout>
     );
-};
+}

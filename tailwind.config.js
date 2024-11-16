@@ -17,6 +17,12 @@ module.exports = {
                 customDark: '#1F316F',
                 bgDark: '#0B0000',
             },
+            gridTemplateColumns: {
+                random: 'repeat(32, minmax(0, 1fr))',
+            },
+            gridTemplateRows: {
+                random: 'repeat(32, minmax(0, 1fr))',
+            },
         },
     },
     plugins: [],
