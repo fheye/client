@@ -3,7 +3,7 @@ import '../../styles/map.css'
 import MapBox from './map'
 import { useEffect, useState } from 'react'
 import { faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
-import { getCloseCriminalCount, getCloseCriminals, getLatestActivityFeeds, getUserDetectedCriminalCount, getUserRevealedImageCount, getUserUploadedImageCount } from '../../utils'
+import { getCloseCriminalCount, getCloseCriminals, getSafetyScore, getUserDetectedCriminalCount, getUserRevealedImageCount, getUserUploadedImageCount } from '../../utils'
 
 const EmojiStates = {
     HAPPY: "HAPPY",
@@ -76,18 +76,33 @@ export default function Map() {
         })
     }
 
+    const calculateEmojiState = (score) => {
+        if (score === null) {
+            setEmojiState(EmojiStates.NORMAL);
+        } else if (score >= 70) {
+            setEmojiState(EmojiStates.HAPPY);
+        } else if (score >= 50) {
+            setEmojiState(EmojiStates.NORMAL);
+        } else {
+            setEmojiState(EmojiStates.SAD);
+        }
+    }
+
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const { latitude, longitude } = position.coords
                     setUserLocation([longitude, latitude])
-
+                    
                     let latitudeInt = Math.round(position.coords.latitude * 100)
                     let longitudeInt = Math.round(position.coords.longitude * 100)
 
+                    getSafetyScore(latitudeInt, longitudeInt).then((data) => {
+                        calculateEmojiState(data);
+                    });         
+
                     getCloseCriminals(longitudeInt, latitudeInt, 100000).then((data) => {
-                        console.log(data)
                         setCoordinates(
                             data.map((item) => ({
                                 lng: item.locationX / 100,

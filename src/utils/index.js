@@ -48,9 +48,6 @@ export async function getCloseCriminals(locationX, locationY, distance) {
 }
 
 export async function getCloseCriminalCount(locationX, locationY, distance) {
-    console.log('locationX:', locationX)
-    console.log('locationY:', locationY)
-    console.log('distance:', distance)
     try {
         const GET_REVEALED_IMAGES_COUNT = gql`
             query GetRevealedImagesCountByLocation($minX: BigInt!, $maxX: BigInt!, $minY: BigInt!, $maxY: BigInt!) {
@@ -133,7 +130,35 @@ export async function getUserRevealedImageCount(userId) {
         return -1
     }
 }
-        
+
+export async function getSafetyScore(locationX, locationY) {
+    return getCloseCriminalCount(locationX, locationY, 30).then((criminalCount) => {
+        return getUserCount().then((userCount) => {
+            return criminalCount / userCount
+        })
+    })
+}
+
+export async function getUserCount() {
+    try {
+        const GET_USER_COUNT = gql`
+            query GetUserCount {
+                users {
+                    id
+                }
+            }
+        `
+        const { data } = await client.query({
+            query: GET_USER_COUNT,
+        })
+
+        return data.users.length
+    } catch (error) {
+        console.error('Error fetching user count:', error.message)
+        return -1
+    }
+}
+         
 export async function getUserDetectedCriminalCount(userId) {
     try {
         const GET_USER_DETECTED_CRIMINAL_COUNT = gql`
