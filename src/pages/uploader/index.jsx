@@ -85,7 +85,7 @@ export default function Uploader() {
             console.log('imageId:', imageId);
 
             const encrypted_embedding = await Promise.all(embedding.map(async (value) => {
-                return await fhenix.encrypt_uint16(value);
+                return await fhenix.encrypt_uint8(value);
             }));
 
             await contract.uploadImageChunk(
