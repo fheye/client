@@ -138,9 +138,11 @@ export async function getUserDetectedCriminalCount(userId) {
     try {
         const GET_USER_DETECTED_CRIMINAL_COUNT = gql`
             query GetUserDetectedCriminalCount($userId: Bytes!) {
-                faceDetectionEvents(
+                images(
                     where: {
-                        user: $userId
+                        uploader: $userId,
+                        isRevealed: true,
+                        detectionCount_gt: 0
                     }
                 ) {
                     id
@@ -152,7 +154,7 @@ export async function getUserDetectedCriminalCount(userId) {
             variables: { userId },
         })
 
-        return data.faceDetectionEvents.length
+        return data.images.length
     } catch (error) {
         console.error('Error fetching user detected criminal count:', error.message)
         return -1
