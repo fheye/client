@@ -720,14 +720,6 @@ video {
   margin-top: 1rem;
 }
 
-.mb-0 {
-  margin-bottom: 0px;
-}
-
-.mt-auto {
-  margin-top: auto;
-}
-
 .block {
   display: block;
 }
@@ -1137,10 +1129,6 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
-}
-
-.pb-4 {
-  padding-bottom: 1rem;
 }
 
 .text-left {
