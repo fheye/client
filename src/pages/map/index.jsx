@@ -37,8 +37,8 @@ export default function Map() {
                         console.log(data)
                         setCoordinates(
                             data.map((item) => ({
-                                lng: item.locationX,
-                                lat: item.locationY,
+                                lng: item.locationX / 100,
+                                lat: item.locationY / 100,
                                 title: 'Criminal',
                                 body: `Last seen: ${new Date(item.timestamp).toLocaleString()}`,
                             }))

@@ -36,7 +36,7 @@ export default function MapBox({ coordinates = [] }) {
 
         coordinates.forEach(({ lng, lat, title, body }) => {
             addMarker({
-                location: [lng, lat],
+                location: [lat, lng],
                 title,
                 body,
                 color: 'red',
