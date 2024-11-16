@@ -4,6 +4,7 @@ import MapBox from './map'
 import { useEffect, useState } from 'react'
 import { faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
 import { getCloseCriminalCount, getCloseCriminals, getSafetyScore, getUserDetectedCriminalCount, getUserRevealedImageCount, getUserUploadedImageCount } from '../../utils'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EmojiStates = {
     HAPPY: "HAPPY",
@@ -12,8 +13,7 @@ const EmojiStates = {
 };
 
 export default function Map() {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [emojiState, setEmojiState] = useState(EmojiStates.HAPPY);
+    const [emojiState, setEmojiState] = useState(EmojiStates.NORMAL);
     const [coordinates, setCoordinates] = useState([]);
     const [userLocation, setUserLocation] = useState(null);
     const [informations , setInformations] = useState([])
@@ -157,10 +157,10 @@ export default function Map() {
                         <span>SCORE NOW</span>
                     </div>
                     <div className='flex flex-col text-6xl text-center'>
-                        <span>GREAT</span>
+                        <span>{emojiState}</span>
                     </div>
                     <div className=''>
-                        <img src='/icons/safetyscore_great.png' alt='greatsafety' />
+                        <FontAwesomeIcon icon={emojiIcons[emojiState]} size='7x'/>
                     </div>
                 </div>
 
