@@ -3,12 +3,87 @@ import { useState } from "react";
 import ImageUpload from './imgUpload';
 import Layout from '../../components/Layout';
 import Card from '../../components/Card';
+import FaceDetectionArtifact from "../../../abi/FaceDetection.json"
+
+import { ethers } from 'ethers'
+import { FhenixClient } from "fhenixjs";
 
 export default function Uploader() {
     const [images, setImages] = useState([]);
-    const handleSubmit = () => {
-        console.log("images submitted", images);
-    };
+    const [embedding, setEmbedding] = useState([]);
+
+    function getLocation() {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    resolve({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    });
+                },
+                (error) => {
+                    reject(error);
+                }
+            );
+        });
+    }
+
+    async function handleSubmit () {
+        await getEmbeddingOfImage(images[0]);
+        await uploadEmbedding(embedding);
+    }
+
+    async function getEmbeddingOfImage(image) {
+        // try to call the model and get the embedding of the image
+        // if there is no response, return default value
+        setEmbedding([1, 2, 3, 4]);
+    }
+
+    async function uploadEmbedding() {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const fhenix = new FhenixClient({ provider });
+
+        const signer = await provider.getSigner();
+
+        const contract = new ethers.Contract(
+            FaceDetectionArtifact.address,
+            FaceDetectionArtifact.abi,
+            signer
+        );
+
+        // location, timestamp
+        const location = await getLocation();
+        location.lat = Math.round(location.lat);
+        location.lng = Math.round(location.lng);
+
+        const timestamp = new Date().getTime();
+
+        await contract.uploadImage(
+            await fhenix.encrypt_uint16(location.lat),
+            await fhenix.encrypt_uint16(location.lng),
+            await fhenix.encrypt_uint16(4) //TODO: change this to the actual timestamp
+        ).then(async (tx) => {
+            const recepient = await tx.wait();
+            console.log('recepient:', recepient);
+            const imageId = recepient.logs[0].data;
+            console.log('imageId:', imageId);
+
+            const encrypted_embedding = await Promise.all(embedding.map(async (value) => {
+                return await fhenix.encrypt_uint16(value);
+            }));
+
+            await contract.uploadImageChunk(
+                encrypted_embedding,
+                imageId,
+                0
+            )
+            return tx.hash;
+        }).catch((err) => {
+            console.error(err);
+        });
+
+        // console.log('imageId:', imageId);
+    }
 
     return (
         <Layout>
@@ -44,4 +119,4 @@ export default function Uploader() {
             </div>
         </Layout>
     );
-};
+}

@@ -2,15 +2,56 @@ import '../../styles/output.css'
 import { useState } from "react";
 import ImageUpload from '../uploader/imgUpload';
 import Layout from '../../components/Layout';
+import FaceDetectionArtifact from "../../../abi/FaceDetection.json"
+
+import { ethers } from 'ethers'
 
 export default function FaceDetector() {
     const [images, setImages] = useState([]);
-    const handleSubmit = () => {
-        console.log("images submitted", images);
-    };
+    const [embedding, setEmbedding] = useState([]);
+
+    async function handleSubmit () {
+        await getEmbeddingOfImage(images[0]);
+        await uploadEmbedding(embedding);
+    }
+    
     const handleDeleteImage = () => {
         setImages([]);
     };
+
+    async function getEmbeddingOfImage(image) {
+        // try to call the model and get the embedding of the image
+        // if there is no response, return default value
+        return [1, 2, 3, 4];
+    }
+
+    async function uploadEmbedding(embedding) {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
+        const signer = await provider.getSigner();
+
+        const contract = new ethers.Contract(
+            FaceDetectionArtifact.address,
+            FaceDetectionArtifact.abi,
+            signer
+        );
+
+        // location, timestamp
+        const location = navigator.geolocation.getCurrentPosition((position) => {
+            return {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            }
+        });
+
+        const timestamp = new Date().getTime();
+
+        console.log('location:', location);
+        console.log('timestamp:', timestamp);
+
+        // const tx = await contract.uploadImage(
+        // console.log('tx:', tx);
+    }
 
     return (
         <Layout>
