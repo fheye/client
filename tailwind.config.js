@@ -6,9 +6,9 @@ module.exports = {
         extend: {
             backgroundImage: {
                 'custom-gradient': 'linear-gradient(180deg, rgba(0, 10, 122, 0.2) 0%, rgba(0, 71, 179, 0.2) 100%)',
-                'dashboardGradient': 'linear-gradient(229deg, rgb(205 205 205 / 79%) 0%, rgb(4 4 4) 100%)',
+                'dashboardGradient': 'linear-gradient(229deg, rgb(78 76 76 / 79%) 0%, rgb(4 4 4) 100%)',
                 'facedetectionGradient': 'radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.98) 100%)'
-              },
+            },
             maxWidth: {
                 "1250p": "1250px"
             },
