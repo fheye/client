@@ -4,8 +4,13 @@ import MapBox from './map'
 import Layout from '../../components/Layout'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faCircleArrowRight, faChevronRight, faChevronLeft, faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
+
+const EmojiStates = {
+    HAPPY: "HAPPY",
+    NORMAL: "NORMAL",
+    SAD: "SAD",
+};
 
 export default function Map() {
     const bangkokCenter = {
@@ -34,15 +39,15 @@ export default function Map() {
         }
     })
 
-    const statistics = [
-        { label: 'Total Locations', value: coordinates.length },
-        { label: 'Total Users', value: 100 },
-        { label: 'Total Orders', value: 1000 },
-    ]
+    const [isExpanded, setIsExpanded] = useState(true);
 
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [emojiState, setEmojiState] = useState(EmojiStates.HAPPY);
 
-
+    const emojiIcons = {
+        [EmojiStates.HAPPY]: faFaceSmileBeam,
+        [EmojiStates.NORMAL]: faFaceMeh,
+        [EmojiStates.SAD]: faFaceFrown,
+    };
     return (
         <Layout>
             <div className='flex flex-col justify-center items-center w-full h-full'>
@@ -50,21 +55,25 @@ export default function Map() {
                     className={`relative w-full h-[70dvh] flex justify-center items-center bg-dark-blue transition-all duration-300`}
                 >
                     <div
-                        className={`p-2 mr-4 rounded-xl ${isExpanded ? 'w-[70%]' : 'w-[38%]'} h-full transition-all duration-300 bg-gray-300 relative `}
+                        className={`p-2 mr-4 rounded-xl ${isExpanded ? 'w-[70%]' : 'w-[38%]'} h-full transition-all duration-300 bg-customDark text-customDark relative `}
 
                     >
                         <MapBox id="map-container" coordinates={coordinates} />
                         <button className='absolute bottom-0 left-0 w-full' onClick={() => setIsExpanded(!isExpanded)}>
                             {
-                                isExpanded ? <div className='flex flex-col justify-start items-start text-left text-2xl p-4'>
-                                    <span>Go</span>
-                                    <span>Map View</span>
-
-                                </div> :
-                                    <div className='w-full flex flex-col justify-end items-end text-right text-2xl p-4'>
+                                isExpanded ?
+                                    <div className='w-full flex flex-col justify-end items-end text-left text-2xl p-4 mr-4'>
+                                        <span>Back</span>
+                                        <span>
+                                            <FontAwesomeIcon icon={faChevronLeft} size="1x" style={{ ccolor: "var(--color-emoji-dark)" }} />
+                                        </span>
+                                    </div>
+                                    :
+                                    <div className='flex flex-col justify-start items-start text-left text-2xl p-4 ml-4'>
                                         <span>Go</span>
                                         <span>
                                             Map View
+                                            <FontAwesomeIcon icon={faChevronRight} size="1x" style={{ color: "var(--color-emoji-dark)", paddingLeft: '14px' }} />
                                         </span>
                                     </div>
                             }
@@ -72,23 +81,45 @@ export default function Map() {
                         </button>
                     </div>
                     <div
-                        className={`h-full p-4 rounded-xl flex flex-col bg-gray-500 justify-around items-start text-white transition-all duration-300 ${isExpanded ? 'w-[30%]' : 'w-[62%]'
+                        className={`h-full p-4 text-center text-2xl rounded-xl flex flex-col bg-customDark text-customLight  justify-around items-start transition-all duration-300 ${isExpanded ? 'w-[30%]' : 'w-[62%]'
                             }`}
                     >
-                        {statistics.map((stat, index) => (
-                            <div key={index} className="flex items-center space-x-2">
-                                <div className="w-4 h-4 rounded-full bg-blue-400"></div>
-                                <div className="text-sm font-medium">
-                                    {stat.label}: <span className="font-bold">{stat.value}</span>
-                                </div>
-                            </div>
-                        ))}
+                        <div className='w-full'>
+                            <span>Hello Vovo</span>
+                        </div>
+                        <div className='w-full'>
+                            <span>Show my safety range</span>
+                        </div>
+                        <div className='w-full'>
+                            <span>Show Notifications</span>
+                        </div>
+                        <div className='w-full flex flex-col items-center justify-center'>
+                            <span>Your Safety</span>
+                            <span>Score Now</span>
+                            {340}
+                        </div>
+                        <div className='w-full flex flex-col items-center justify-center'>
+                            <span>HIGH</span>
+                            <span>
+
+                                <FontAwesomeIcon
+                                    icon={emojiIcons[emojiState]}
+                                    size="2x"
+                                    style={{ color: "var(--color-emoji-light)" }}
+                                />
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <button className="m-4 w-full h-[15dvh] rounded-xl bg-gray-100 text-2xl flex items-center justify-center space-x-4">
-                    <FontAwesomeIcon icon={faArrowRight} size="2x" style={{ color: "black" }} />
-                    <span>MAKE SUBMISSION</span>
+                <button className="relative m-4 w-full h-[15dvh] rounded-xl bg-customLight text-customDark text-2xl flex items-center">
+                    <div className="absolute left-12">
+                        <FontAwesomeIcon icon={faCircleArrowRight} size="2x" style={{ color: "var(--color-emoji-dark)", stroke: "var(--color-emoji-dark)" }} />
+                    </div>
+                    <div className="mx-auto">
+                        MAKE SUBMISSION
+                    </div>
                 </button>
+
 
             </div>
         </Layout>
