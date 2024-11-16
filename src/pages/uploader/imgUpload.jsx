@@ -33,12 +33,12 @@ export default function ImageUpload({ setImages }) {
                     muted
                     playsInline
                 >
-                    <source src="src/assets/videos/bluebg.mp4" type="video/mp4" />
+                    <source src="/bluebg.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
                 <input {...getInputProps()} />
                 <div className='w-full h-full relative'>
-                    <img src='src/assets/icons/arrow 1.png' alt='arrow' className='absolute bottom-8 left-1/2 transform -translate-x-1/2' />
+                    <img src='/icons/arrow 1.png' alt='arrow' className='absolute bottom-8 left-1/2 transform -translate-x-1/2' />
                     <p className='text-xl absolute bottom-24 left-1/2 transform -translate-x-1/2 -rotate-90 text-customWhite opacity-8'>{'upload'}</p>
                 </div>
             </div>

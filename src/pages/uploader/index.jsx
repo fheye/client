@@ -115,7 +115,7 @@ export default function Uploader() {
                 muted
                 playsInline
             >
-                <source src="src/assets/videos/bluebg.mp4" type="video/mp4" />
+                <source src="/bluebg.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
             <div className='w-[20dvw] h-full p-2 my-4 text-customLight flex flex-col justify-center items-center relative'>
@@ -123,7 +123,7 @@ export default function Uploader() {
                     <span>YOUR SAFETY</span>
                     <span>IS THE KEY.</span>
                 </div>
-                <img src='src/assets/icons/key.png' alt='key' className='w-full h-auto px-8' />
+                <img src='/icons/key.png' alt='key' className='w-full h-auto px-8' />
                 <span className='text-xs absolute right-[10%] bottom-[36%]'>YOUR SAFETY IS THE KEY</span>
             </div>
             <div className='w-[15dvw] h-full p-2 mt-24'>
@@ -139,7 +139,7 @@ export default function Uploader() {
                         muted
                         playsInline
                     >
-                        <source src="src/assets/videos/bluebg.mp4" type="video/mp4" />
+                        <source src="/bluebg.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                     <span className="relative z-10">submit</span>

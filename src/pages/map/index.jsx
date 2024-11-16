@@ -63,7 +63,7 @@ export default function Map() {
                 muted
                 playsInline
             >
-                <source src="src/assets/videos/greenbg.mp4" type="video/mp4" />
+                <source src="/greenbg.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
             <div
@@ -84,7 +84,7 @@ export default function Map() {
                         <span>GREAT</span>
                     </div>
                     <div className=''>
-                        <img src='src/assets/icons/safetyscore_great.png' alt='greatsafety' />
+                        <img src='/icons/safetyscore_great.png' alt='greatsafety' />
                     </div>
                 </div>
 

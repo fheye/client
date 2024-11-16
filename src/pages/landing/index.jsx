@@ -11,7 +11,7 @@ export default function Landing() {
                 muted
                 playsInline
             >
-                <source src="src/assets/videos/greenbg.mp4" type="video/mp4" />
+                <source src="/greenbg.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
             <div className='w-1/2 h-[70dvh] flex justify-center items-center m-4'>
@@ -20,7 +20,7 @@ export default function Landing() {
                     className='w-[40%] h-full rounded-xl m-4 bg-dashboardGradient shadow-dashboard-shadow flex justify-center items-center'
                 >
                     <img
-                        src='src/assets/icons/map_photo.png'
+                        src='/icons/map_photo.png'
                         alt='map'
                         className='w-full h-full object-cover rounded-xl mix-blend-difference'
                     />
@@ -34,13 +34,13 @@ export default function Landing() {
                         <span>GREAT</span>
                     </div>
                     <div className=''>
-                        <img src='src/assets/icons/safetyscore_great.png' alt='greatsafety' />
+                        <img src='/icons/safetyscore_great.png' alt='greatsafety' />
                     </div>
                 </div>
             </div>
             <div className='w-1/2 h-[14dvh] flex justify-center items-center'>
                 <div className='w-[20%] h-full rounded-xl px-4 bg-dashboardGradient shadow-dashboard-shadow m-4 flex items-center justify-center'>
-                    <img src="src/assets/icons/logo.png" alt="logo" className='w-1/2 h-1/2 object-cover' />
+                    <img src="/icons/logo.png" alt="logo" className='w-1/2 h-1/2 object-cover' />
                 </div>
                 <Link to='/img' className='w-[80%] h-full rounded-xl px-4 bg-customWhite m-4 cursor-pointer z-10 opacity-80'>
                     <div className='flex flex-row w-full h-full justify-between items-center'>
@@ -49,7 +49,7 @@ export default function Landing() {
                             <span>SUBMISSION</span>
                         </div>
                         <div>
-                            <img src='src/assets/icons/arrow_black.png' alt='arrow-up' />
+                            <img src='/icons/arrow_black.png' alt='arrow-up' />
                         </div>
                     </div>
                 </Link>

@@ -130,7 +130,7 @@ export default function FaceDetector() {
                     muted
                     playsInline
                 >
-                    <source src="src/assets/videos/purplebg.mp4" type="video/mp4" />
+                    <source src="/purplebg.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
                 <div className="w-full h-full p-2 space-y-4 flex flex-row items-center justify-center">
@@ -164,7 +164,7 @@ export default function FaceDetector() {
                                 muted
                                 playsInline
                             >
-                                <source src="src/assets/videos/bluebg.mp4" type="video/mp4" />
+                                <source src="/bluebg.mp4" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                             <span className="relative z-10">submit</span>
