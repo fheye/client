@@ -79,12 +79,12 @@ export default function Map() {
     const calculateEmojiState = (score) => {
         if (score === null) {
             setEmojiState(EmojiStates.NORMAL);
-        } else if (score >= 70) {
-            setEmojiState(EmojiStates.HAPPY);
-        } else if (score >= 50) {
+        } else if (score > 0.7) {
+            setEmojiState(EmojiStates.SAD);
+        } else if (score > 0.4) {
             setEmojiState(EmojiStates.NORMAL);
         } else {
-            setEmojiState(EmojiStates.SAD);
+            setEmojiState(EmojiStates.HAPPY);
         }
     }
 

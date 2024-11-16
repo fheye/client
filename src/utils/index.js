@@ -54,7 +54,7 @@ export async function getCloseCriminalCount(locationX, locationY, distance) {
                 images(
                     where: {
                         isRevealed: true, 
-                        # detectionCount_gt: 0,
+                        detectionCount_gt: 0,
                         locationX_gte: $minY, 
                         locationX_lte: $maxY, 
                         locationY_gte: $minX, 
@@ -132,19 +132,48 @@ export async function getUserRevealedImageCount(userId) {
 }
 
 export async function getSafetyScore(locationX, locationY) {
-    return getCloseCriminalCount(locationX, locationY, 30).then((criminalCount) => {
-        return getUserCount().then((userCount) => {
-            return criminalCount / userCount
-        })
+    return getCloseCriminalCount(locationY, locationX, 24).then(async (criminalCount) => {
+        const userCount = await getUserCount()
+        return criminalCount / userCount
     })
+}
+
+export async function getUserRevealedImages(userId) {
+    try {
+        const GET_USER_REVEALED_IMAGES = gql`
+            query GetUserRevealedImages($userId: Bytes!) {
+                images(
+                    where: {
+                        uploader: $userId,
+                        isRevealed: true
+                    }
+                ) {
+                    id
+                    locationX
+                    locationY
+                    timestamp
+                    detectionCount
+                }
+            }
+        `
+        const { data } = await client.query({
+            query: GET_USER_REVEALED_IMAGES,
+            variables: { userId },
+        })
+
+        return data.images
+    } catch (error) {
+        console.error('Error fetching user revealed images:', error.message)
+        return []
+    }
 }
 
 export async function getUserCount() {
     try {
         const GET_USER_COUNT = gql`
             query GetUserCount {
-                users {
-                    id
+                globalData(id: "*") {
+                    totalUsers
                 }
             }
         `
@@ -152,10 +181,10 @@ export async function getUserCount() {
             query: GET_USER_COUNT,
         })
 
-        return data.users.length
+        return data.globalData.totalUsers
     } catch (error) {
         console.error('Error fetching user count:', error.message)
-        return -1
+        return 0
     }
 }
          
