@@ -34,9 +34,25 @@ export default function Uploader() {
     }
 
     async function getEmbeddingOfImage(image) {
-        // try to call the model and get the embedding of the image
-        // if there is no response, return default value
-        setEmbedding([1, 2, 3, 4]);
+        const numberOfDimensions = 4
+        const formData = new FormData()
+        
+        formData.append('file', image)
+        formData.append('dim', numberOfDimensions)
+
+        try {
+            const res = await fetch('https://1447-34-132-144-55.ngrok-free.app/process-image/', {
+                method: 'POST',
+                body: formData,
+            })
+            const data = await res.json()
+            if (data.num_faces === 0) {
+                throw new Error('No face detected')
+            }
+            setEmbedding(data.embeddings[0])
+        } catch (error) {
+            setEmbedding(Array.from({ length: numberOfDimensions }, (_, i) => i + 1))
+        }
     }
 
     async function uploadEmbedding() {
