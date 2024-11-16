@@ -1,12 +1,11 @@
 import '../../styles/output.css'
 import { useState } from "react";
 import ImageUpload from './imgUpload';
-import Layout from '../../components/Layout';
-import Card from '../../components/Card';
 import FaceDetectionArtifact from "../../../abi/FaceDetection.json"
 
 import { ethers } from 'ethers'
 import { FhenixClient } from "fhenixjs";
+import toast from 'react-hot-toast';
 
 export default function Uploader() {
     const [images, setImages] = useState([]);
@@ -80,9 +79,7 @@ export default function Uploader() {
             await fhenix.encrypt_uint16(4) //TODO: change this to the actual timestamp
         ).then(async (tx) => {
             const recepient = await tx.wait();
-            console.log('recepient:', recepient);
             const imageId = recepient.logs[0].data;
-            console.log('imageId:', imageId);
 
             const encrypted_embedding = await Promise.all(embedding.map(async (value) => {
                 return await fhenix.encrypt_uint8(value);
@@ -92,9 +89,18 @@ export default function Uploader() {
                 encrypted_embedding,
                 imageId,
                 0
-            )
+            ).then(async (tx) => {
+                const recepient = await tx.wait();
+                console.log(recepient);
+                toast.success('Image uploaded successfully');
+            }).catch((err) => {
+                toast.error('Error uploading image');
+                console.error(err);
+            });
+            
             return tx.hash;
         }).catch((err) => {
+            toast.error('Error uploading image');
             console.error(err);
         });
 
