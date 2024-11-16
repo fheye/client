@@ -8,7 +8,8 @@
     "build": "vite build",
     "style": "tailwindcss -i src/styles/index.css -o src/styles/output.css --watch",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
@@ -23,6 +24,7 @@
     "fhenixjs": "^0.4.0",
     "graphql": "^16.9.0",
     "mapbox-gl": "^3.8.0",
+    "patch-package": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.3.5",
