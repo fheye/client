@@ -35,7 +35,7 @@ export default function Navbar() {
         <nav style={{ fontFamily: 'RubikScribble' }} className="fixed w-full z-20 top-0 start-0">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to='/' href="" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="src/assets/icons/logo.png" alt="logo" />
+                    <img src="src/assets/icons/logo.png" alt="logo" /> <span className="text-white text-xl">fheye</span>
                 </Link>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     {
