@@ -19,7 +19,7 @@ export default function FaceDetector() {
         await getEmbeddingOfImage(images[0]);
         await faceDetection(embedding);
     }
-    
+
     const handleDeleteImage = () => {
         setImages([]);
     };
@@ -28,7 +28,7 @@ export default function FaceDetector() {
         // try to call the model and get the embedding of the image
         // if there is no response, return default value
         const numberOfDimensions = 4
-        
+
         setEmbedding(Array.from({ length: numberOfDimensions }, (_, i) => i + 1))
 
         return [1, 2, 3, 4];
@@ -66,7 +66,7 @@ export default function FaceDetector() {
             setMatchedImage(imageId);
         }
     }
-    
+
 
     async function handleReveal() {
         const provider = new ethers.BrowserProvider(window.ethereum);
@@ -103,7 +103,7 @@ export default function FaceDetector() {
         const locationX = BigInt(`0x${getSegment(192)}`); // Fourth segment
         const locationY = BigInt(`0x${getSegment(256)}`); // Fifth segment
         const timestamp = BigInt(`0x${getSegment(320)}`); // Sixth segment
-        
+
         // Combine into an object
         const decodedEvent = {
             imageId,
@@ -113,59 +113,55 @@ export default function FaceDetector() {
             locationY,
             timestamp,
         };
-        
+
         // Log the results
         console.log(decodedEvent);
     }
 
 
     return (
-        <Layout>
-            <div className='relative w-full h-[70dvh] p-2 border-2 border-gray flex justify-center items-center'>
-                <div className="w-1/2 h-full p-2 space-y-4 flex flex-col items-center">
-                    {images.length === 0 && (
-                        <>
-                        <div className="w-full h-full flex flex-row justify-center items-center">
-                            <ImageUpload images={images} setImages={setImages} />
-                        </div>
-                        </>
-                    )}
-                    {images.length > 0 && (
-                        <div className="w-full h-full flex flex-col justify-center items-center space-y-4">
-                            {images.map((image, index) => (
-                                <div
-                                    key={index}
-                                    className="relative w-full h-auto overflow-hidden border rounded-md"
-                                >
-                                    <img
-                                        src={image.preview}
-                                        alt="uploaded preview"
-                                        className="object-cover h-full w-full"
-                                    />
-                                </div>
-                            ))}
-                            <button
-                                onClick={handleSubmit}
-                                className="bg-blue-500 text-white text-xl px-8 py-2 rounded-lg hover:bg-blue-600 transition w-1/2 h-[8dvh]"
+        <>
+            {/* <Notifications />    */}
+            < div className='relative w-full h-full flex justify-center items-center' >
+                <video
+                    className="absolute top-0 left-0 w-full h-full object-cover rounded-lg mix-blend-lighten"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                >
+                    <source src="src/assets/videos/purplebg.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div className="w-full h-full p-2 space-y-4 flex flex-row items-center justify-center">
+                    <div className='z-10 text-customWhite w-[35dvw] h-[70dvh] p-2 my-24 bg-facedetectionGradient shadow-facedetector-shadow flex flex-col items-center justify-between'>
+                        <span className='self-start pl-12'>Match Found</span>
+                        <div className='w-5/6 h-5/6 bg-white'></div>
+                        <button className='rounded-xl border border-2 border-white w-5/6 px-4'>REVEAL KEY</button>
+                    </div>
+                    <div className='w-[15dvw] h-full p-2 mt-24'>
+                        <ImageUpload images={images} setImages={setImages} />
+                        <button
+                            onClick={handleSubmit}
+                            className="bg-customLight w-full text-customWhite text-xl px-4 py-2 my-2 rounded-lg relative shadow shadow-video bg-[#ffffff] rounded-lg"
+                        >
+                            <video
+                                className="absolute top-0 left-0 w-full h-full object-cover rounded-lg mix-blend-luminosity"
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
                             >
-                                Submit
-                            </button>
-                            <button
-                                disabled={images.length <= 0}
-                                onClick={handleDeleteImage}
-                                className="bg-blue-500 text-white text-sm px-8 py-2 rounded-lg transition hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed "
-                            >
-                                Delete Image
-                            </button>
-                        </div>
-                    )}
-
-
+                                <source src="src/assets/videos/bluebg.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                            <span className="relative z-10">submit</span>
+                        </button>
+                    </div>
                 </div>
-
-                <div className="w-1/2 h-full p-6 flex flex-col justify-evenly items-center">
+                {/* <div className="w-1/2 h-full p-6 flex flex-col justify-evenly items-center">
                     {
-                        hasMatch && 
+                        hasMatch &&
                         <RandomDecimalGrid />
                     }
                     {
@@ -177,8 +173,8 @@ export default function FaceDetector() {
                             Reveal Metadata
                         </button>
                     }
-                </div>
-            </div>
-        </Layout>
+                </div> */}
+            </div >
+        </>
     );
 }

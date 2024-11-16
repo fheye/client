@@ -1,10 +1,8 @@
 import '../../styles/output.css'
 import '../../styles/map.css'
 import MapBox from './map'
-import Layout from '../../components/Layout'
 import { useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleArrowRight, faChevronRight, faChevronLeft, faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
+import { faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
 import { getCloseCriminals } from '../../utils'
 
 const EmojiStates = {
