@@ -119,14 +119,20 @@ export default function MapBox({ coordinates = [] }) {
         };
     }, []);
 
+    const updateLocation = () => {
+
+    }
 
 
     return (
         <>
             {center && (
-                <div className="sidebar">
-                    Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)}
-                </div>
+                <>
+                    <div className="sidebar">
+                        Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)}
+                        <button onClick={updateLocation} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Update Location</button>
+                    </div>
+                </>
             )}
             <div id="map-container" ref={mapContainerRef} />
         </>

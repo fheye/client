@@ -38,7 +38,7 @@ export default function Landing() {
                     </div>
                 </div>
             </div>
-            <div className='w-1/2 h-[12dvh] flex justify-center items-center'>
+            <div className='w-1/2 h-[14dvh] flex justify-center items-center'>
                 <div className='w-[20%] h-full rounded-xl px-4 bg-dashboardGradient shadow-dashboard-shadow m-4 flex items-center justify-center'>
                     <img src="src/assets/icons/logo.png" alt="logo" className='w-1/2 h-1/2 object-cover' />
                 </div>

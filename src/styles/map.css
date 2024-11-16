@@ -23,6 +23,8 @@
     left: 0;
     margin: 12px;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column;
 }
 
 .reset-button {
