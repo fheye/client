@@ -763,6 +763,10 @@ video {
   height: 14dvh;
 }
 
+.h-\[6dvh\] {
+  height: 6dvh;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -839,6 +843,10 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 
 .resize {
@@ -1177,6 +1185,10 @@ video {
 
 .opacity-80 {
   opacity: 0.8;
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .mix-blend-lighten {

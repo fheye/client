@@ -15,7 +15,7 @@ export default function FaceDetector() {
     const [hasMatch, setHasMatch] = useState(false);
     const [matchedImage, setMatchedImage] = useState(-1);
 
-    async function handleSubmit () {
+    async function handleSubmit() {
         await getEmbeddingOfImage(images[0]);
         await faceDetection(embedding);
     }
@@ -135,9 +135,21 @@ export default function FaceDetector() {
                 </video>
                 <div className="w-full h-full p-2 space-y-4 flex flex-row items-center justify-center">
                     <div className='z-10 text-customWhite w-[35dvw] h-[70dvh] p-2 my-24 bg-facedetectionGradient shadow-facedetector-shadow flex flex-col items-center justify-between'>
-                        <span className='self-start pl-12'>Match Found</span>
-                        <div className='w-5/6 h-5/6 bg-white'></div>
-                        <button className='rounded-xl border border-2 border-white w-5/6 px-4'>REVEAL KEY</button>
+                        <span className='self-start pl-12'>{hasMatch ? 'Match Found' : 'No Match'}</span>
+                        <div className='w-5/6 h-5/6  opacity-80 rounded-xl flex items-center justify-center'>
+                            {
+                                hasMatch &&
+                                <RandomDecimalGrid />
+                            }
+                        </div>
+                        <button
+                            disabled={!hasMatch}
+                            onClick={handleReveal}
+                            className={`bg-blue-500 rounded-xl text-white text-xl w-5/6 h-[6dvh] px-4 transition ${!hasMatch ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
+                                }`}
+                        >
+                            Reveal Metadata
+                        </button>
                     </div>
                     <div className='w-[15dvw] h-full p-2 mt-24'>
                         <ImageUpload images={images} setImages={setImages} />
