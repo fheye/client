@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PushAPI, CONSTANTS } from '@pushprotocol/restapi';
 
 export default function Notifications({ pushUser }) {
-    const [notifications, setNotifications] = useState([]);
+    const [notifications, setNotifications] = useState(null);
 
     async function fetchNotifications() {
         if (pushUser.errors.length > 0) {
@@ -11,15 +11,16 @@ export default function Notifications({ pushUser }) {
         }
 
         const inboxNotifications = await pushUser.notification.list('INBOX');
-        console.log('inboxNotifications:', inboxNotifications);
-        setNotifications(inboxNotifications.data);
+        setNotifications(inboxNotifications);
     }
 
     useEffect(() => {
         fetchNotifications();
     }, []);
 
-    if (!notifications || notifications.length <= 0) {
+    if (notifications === null) {
+        return <></>
+    } else if (notifications.length <= 0) {
         return (
             <div className="bg-customWhite rounded-xl p-4 max-h-[40dvh] w-[30dvw] overflow-y-auto">
                 <span className="text-sm font-bold text-gray-900">There are no notifications...</span>
