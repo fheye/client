@@ -664,6 +664,10 @@ video {
   top: 11rem;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .z-20 {
   z-index: 20;
 }
@@ -1286,6 +1290,13 @@ video {
 
 :root {
   background-color: #0B0000;
+}
+
+@font-face{
+  font-family: "RubikScribble";
+
+  src:local("RubikScribble-Regular"),
+    url('./assets/fonts/Rubik_Scribble/RubikScribble-Regular.ttf')
 }
 
 .hover\:bg-blue-600:hover {

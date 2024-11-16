@@ -65,15 +65,15 @@ export default function Map() {
                                     <div className='w-full flex flex-col justify-end items-end text-left text-2xl p-4 mr-4'>
                                         <span>Back</span>
                                         <span>
-                                            <FontAwesomeIcon icon={faChevronLeft} size="1x" style={{ ccolor: "var(--color-emoji-dark)" }} />
+                                            <FontAwesomeIcon icon={faChevronLeft} size="1x" style={{ color: 'var(--color-bg-dark' }} />
                                         </span>
                                     </div>
                                     :
-                                    <div className='flex flex-col justify-start items-start text-left text-2xl p-4 ml-4'>
+                                    <div className='flex flex-col justify-start items-start text-left text-2xl p-4 ml-4 z-10'>
                                         <span>Go</span>
                                         <span>
                                             Map View
-                                            <FontAwesomeIcon icon={faChevronRight} size="1x" style={{ color: "var(--color-emoji-dark)", paddingLeft: '14px' }} />
+                                            <FontAwesomeIcon icon={faChevronRight} size="1x" style={{ color: "var(--color-bg-dark", paddingLeft: '14px' }} />
                                         </span>
                                     </div>
                             }
@@ -113,7 +113,7 @@ export default function Map() {
                 </div>
                 <button className="relative m-4 w-full h-[15dvh] rounded-xl bg-customLight text-bgDark text-2xl flex items-center">
                     <div className="absolute left-12">
-                        <FontAwesomeIcon icon={faCircleArrowRight} size="2x" style={{ color: "var(--color-emoji-dark)", stroke: "var(--color-emoji-dark)" }} />
+                        <FontAwesomeIcon icon={faCircleArrowRight} size="2x" style={{ color: "var(--color-bg-dark)", stroke: "var(--color-bg-dark)" }} />
                     </div>
                     <div className="mx-auto">
                         MAKE SUBMISSION
