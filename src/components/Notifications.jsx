@@ -29,24 +29,31 @@ export default function Notifications() {
 
         console.log('inboxNotifications:', inboxNotifications);
 
-        // setNotifications(inboxNotifications.data);
+        setNotifications(inboxNotifications.data);
     }
 
     useEffect(() => {
         fetchNotifications();
     }, []);
 
+    if (!notifications || notifications.length <= 0) {
+        return (
+            <div className="bg-customWhite rounded-xl p-4 max-h-[40dvh] w-[30dvw] overflow-y-auto">
+                <span className="text-sm font-bold text-gray-900">There is no Notifications...</span>
+            </div>
+        )
+    }
     return (
-        <div>
-            {
-                // notifications.map((notification) => {
-                //     return (
-                //         <div key={notification.id} className="flex items-center space-x-3 rtl:space-x-reverse">
-                //             <span className="text-sm font-medium text-gray-900 ">{notification.title}</span>
-                //         </div>
-                //     );
-                // })
-            }
+        <div className="bg-customWhite rounded-xl p-4 max-h-[40dvh] w-[30dvw] overflow-y-auto">
+            {notifications.map((notification) => (
+                <div
+                    key={notification.sid}
+                    className="flex flex-col items-center space-y-6 border-b-2 border-black py-4 text-center"
+                >
+                    <span className="text-sm font-bold text-gray-900">{notification.notification.title}</span>
+                    <span className="text-sm font-medium text-gray-900">{notification.notification.body}</span>
+                </div>
+            ))}
         </div>
-    );
+    )
 }

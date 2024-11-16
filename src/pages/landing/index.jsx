@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
 import '../../styles/output.css'
+import { useState } from 'react'
+import Notifications from '../../components/Notifications';
 
 export default function Landing() {
+    const [notificationActive, setNotificationActive] = useState(false);
+
     return (
         <div className='w-full h-full flex flex-col justify-center items-center text-customWhite'>
             <video
@@ -38,11 +42,22 @@ export default function Landing() {
                     </div>
                 </div>
             </div>
-            <div className='w-1/2 h-[14dvh] flex justify-center items-center'>
-                <div className='w-[20%] h-full rounded-xl px-4 bg-dashboardGradient shadow-dashboard-shadow m-4 flex items-center justify-center'>
-                    <img src="/icons/logo.png" alt="logo" className='w-1/2 h-1/2 object-cover' />
+            <div className='w-1/2 h-[14dvh] flex justify-center items-center relative'>
+                <div
+                    onClick={() => setNotificationActive(!notificationActive)}
+                    className={`z-10 cursor-pointer h-full rounded-xl px-4 bg-dashboardGradient shadow-dashboard-shadow m-4 flex items-center justify-center ${notificationActive ? 'absolute right-[84%] w-[60%]' : 'w-[20%]'
+                        } transition-width duration-500`}>
+                    <img
+                        src="icons/logo.png"
+                        alt="logo"
+                        className={`w-[40px] h-[40px] object-contain ${notificationActive ?  'ml-auto pr-4' : ''}`}
+                    />
+                    <div className='absolute left-0 bottom-[10dvh]'>
+                        {notificationActive && <Notifications />}
+                    </div>
                 </div>
-                <Link to='/img' className='w-[80%] h-full rounded-xl px-4 bg-customWhite m-4 cursor-pointer z-10 opacity-80'>
+
+                <Link to='/img' className={`${notificationActive ? 'w-[60%]' : 'w-[80%]'} h-full rounded-xl px-4 bg-customWhite m-4 cursor-pointer z-10 opacity-80`}>
                     <div className='flex flex-row w-full h-full justify-between items-center'>
                         <div className='flex flex-col text-2xl h-full justify-center mx-8 text-black'>
                             <span>MAKE</span>
