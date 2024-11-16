@@ -14,6 +14,7 @@ export default function FaceDetector() {
     const [embedding, setEmbedding] = useState([1, 2, 3, 4]);
     const [hasMatch, setHasMatch] = useState(false);
     const [matchedImage, setMatchedImage] = useState(-1);
+    const [decryptedMetadata, setDecryptedMetadata] = useState({});
 
     async function handleSubmit() {
         await getEmbeddingOfImage(images[0]);
@@ -114,8 +115,8 @@ export default function FaceDetector() {
             timestamp,
         };
 
-        // Log the results
         console.log(decodedEvent);
+        setDecryptedMetadata(decodedEvent);
     }
 
 
@@ -135,7 +136,7 @@ export default function FaceDetector() {
                 </video>
                 <div className="w-full h-full p-2 space-y-4 flex flex-row items-center justify-center">
                     <div className='z-10 text-customWhite w-[35dvw] h-[70dvh] p-2 my-24 bg-facedetectionGradient shadow-facedetector-shadow flex flex-col items-center justify-between'>
-                        <span className='self-start pl-12'>{hasMatch ? 'Match Found' : 'No Match'}</span>
+                        <span className='self-start pl-12'>{hasMatch ? `Match Found. lat: ${Number(decryptedMetadata.locationX) / 100}- long: ${Number(decryptedMetadata.locationY) / 100}` : 'No Match'}</span>
                         <div className='w-5/6 h-5/6  opacity-80 rounded-xl flex items-center justify-center'>
                             {
                                 hasMatch &&
@@ -171,21 +172,6 @@ export default function FaceDetector() {
                         </button>
                     </div>
                 </div>
-                {/* <div className="w-1/2 h-full p-6 flex flex-col justify-evenly items-center">
-                    {
-                        hasMatch &&
-                        <RandomDecimalGrid />
-                    }
-                    {
-                        hasMatch &&
-                        <button
-                            onClick={handleReveal}
-                            className="bg-blue-500 text-white text-xl px-8 py-2 rounded-lg hover:bg-blue-600 transition w-1/2 h-[8dvh]"
-                        >
-                            Reveal Metadata
-                        </button>
-                    }
-                </div> */}
             </div >
         </>
     );
