@@ -28,7 +28,7 @@ export default function Uploader() {
         });
     }
 
-    async function handleSubmit () {
+    async function handleSubmit() {
         await getEmbeddingOfImage(images[0]);
         await uploadEmbedding(embedding);
     }
@@ -36,7 +36,7 @@ export default function Uploader() {
     async function getEmbeddingOfImage(image) {
         const numberOfDimensions = 4
         const formData = new FormData()
-        
+
         formData.append('file', image)
         formData.append('dim', numberOfDimensions)
 
@@ -98,31 +98,47 @@ export default function Uploader() {
             console.error(err);
         });
 
-        // console.log('imageId:', imageId);
     }
 
     return (
-        <Layout>
-            <div className='w-full h-[74dvh] p-2 flex justify-center items-center'>
-                <div className='w-[20dvw] h-full p-2 my-4 text-customLight flex flex-col justify-center items-center relative'>
-                    <div className='flex flex-col text-3xl absolute right-[4rem] top-[11rem]'>
-                        <span>YOUR</span>
-                        <span>SAFETY</span>
-                        <span>IS THE KEY</span>
-                    </div>
-                    <img src='src/assets/icons/key.png' alt='key' className='w-full h-auto px-8' />
-                    <span className='text-lg text-right w-full'>YOUR SAFETY IS THE KEY</span>
+        <div className='w-full h-full flex justify-center items-center relative bg-white '>
+            <video
+                className="absolute top-0 left-0 w-full h-full object-cover opacity-80"
+                autoPlay
+                loop
+                muted
+                playsInline
+            >
+                <source src="src/assets/videos/bluebg.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            <div className='w-[20dvw] h-full p-2 my-4 text-customLight flex flex-col justify-center items-center relative'>
+                <div className='flex flex-col text-4xl absolute right-[10%] top-[27%]'>
+                    <span>YOUR SAFETY</span>
+                    <span>IS THE KEY.</span>
                 </div>
-                <div className='w-[15dvw] h-full p-2 my-4'>
-                    <ImageUpload images={images} setImages={setImages} />
-                    <button
-                        onClick={handleSubmit}
-                        className="bg-customLight w-full text-customDark text-xl px-4 py-2 my-2 rounded-lg hover:bg-blue-600 transition"
-                    >
-                        Submit
-                    </button>
-                </div>
+                <img src='src/assets/icons/key.png' alt='key' className='w-full h-auto px-8' />
+                <span className='text-xs absolute right-[10%] bottom-[36%]'>YOUR SAFETY IS THE KEY</span>
             </div>
-        </Layout >
+            <div className='w-[15dvw] h-full p-2 mt-24'>
+                <ImageUpload images={images} setImages={setImages} />
+                <button
+                    onClick={handleSubmit}
+                    className="bg-customLight w-full text-customWhite text-xl px-4 py-2 my-2 rounded-lg relative shadow shadow-video bg-[#ffffff] rounded-lg"
+                >
+                    <video
+                        className="absolute top-0 left-0 w-full h-full object-cover rounded-lg mix-blend-luminosity"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    >
+                        <source src="src/assets/videos/bluebg.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <span className="relative z-10">submit</span>
+                </button>
+            </div>
+        </div>
     );
 }
