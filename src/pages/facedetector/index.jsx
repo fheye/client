@@ -7,6 +7,7 @@ import FaceDetectionArtifact from "../../../abi/FaceDetection.json"
 import { ethers } from 'ethers'
 import RandomDecimalGrid from '../../components/RandomGrid';
 import { FhenixClient } from "fhenixjs";
+import Notifications from '../../components/Notifications';
 
 export default function FaceDetector() {
     const [images, setImages] = useState([]);
@@ -120,6 +121,7 @@ export default function FaceDetector() {
 
     return (
         <Layout>
+            {/* <Notifications />    */}
             <div className='relative w-full h-[70dvh] p-2 border-2 border-gray flex justify-center items-center'>
                 <div className="w-1/2 h-full p-2 space-y-4 flex flex-col items-center">
                     {images.length === 0 && (

@@ -11,4 +11,12 @@ export default defineConfig({
     experimental: {
         wasm: true,
     },
+    resolve: {
+        alias: {
+            util: 'util'
+        }
+    },
+    define: {
+        global: {}
+    }
 })
