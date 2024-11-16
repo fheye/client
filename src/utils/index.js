@@ -13,10 +13,10 @@ export async function getCloseCriminals(locationX, locationY, distance) {
                     where: {
                         isRevealed: true, 
                         detectionCount_gt: 0,
-                        locationX_gte: $minX, 
-                        locationX_lte: $maxX, 
-                        locationY_gte: $minY, 
-                        locationY_lte: $maxY
+                        locationX_gte: $minY, 
+                        locationX_lte: $maxY, 
+                        locationY_gte: $minX, 
+                        locationY_lte: $maxX
                     }
                 ) {
                     id
@@ -44,6 +44,118 @@ export async function getCloseCriminals(locationX, locationY, distance) {
     } catch (error) {
         console.error('Error fetching nearby criminals:', error.message)
         return []
+    }
+}
+
+export async function getCloseCriminalCount(locationX, locationY, distance) {
+    console.log('locationX:', locationX)
+    console.log('locationY:', locationY)
+    console.log('distance:', distance)
+    try {
+        const GET_REVEALED_IMAGES_COUNT = gql`
+            query GetRevealedImagesCountByLocation($minX: BigInt!, $maxX: BigInt!, $minY: BigInt!, $maxY: BigInt!) {
+                images(
+                    where: {
+                        isRevealed: true, 
+                        # detectionCount_gt: 0,
+                        locationX_gte: $minY, 
+                        locationX_lte: $maxY, 
+                        locationY_gte: $minX, 
+                        locationY_lte: $maxX
+                    }
+                ) {
+                    id
+                }
+            }
+        `
+
+        const { data } = await client.query({
+            query: GET_REVEALED_IMAGES_COUNT,
+            variables: {
+                minX: locationX - distance,
+                maxX: locationX + distance,
+                minY: locationY - distance,
+                maxY: locationY + distance,
+            },
+        })
+
+        return data.images.length
+    } catch (error) {
+        console.error('Error fetching nearby criminal count:', error.message)
+        return 0
+    }
+}
+
+export async function getUserUploadedImageCount(userId) {
+    try {
+        const GET_USER_UPLOADED_IMAGE_COUNT = gql`
+            query GetUserUploadedImageCount($userId: Bytes!) {
+                user(id: $userId) {
+                    id
+                    uploadedImagesCount
+                }
+            }
+        `
+        const { data } = await client.query({
+            query: GET_USER_UPLOADED_IMAGE_COUNT,
+            variables: { userId },
+        })
+
+        return data?.user?.uploadedImagesCount || 0
+    } catch (error) {
+        console.error('Error fetching user uploaded image count:', error.message)
+        return -1
+    }
+}
+
+export async function getUserRevealedImageCount(userId) {
+    try {
+        const GET_USER_REVEALED_IMAGE_COUNT = gql`
+            query GetUserRevealedImageCount($userId: Bytes!) {
+                images(
+                    where: {
+                        uploader: $userId,
+                        isRevealed: true
+                    }
+                ) {
+                    id
+                }
+            }
+        `
+        const { data } = await client.query({
+            query: GET_USER_REVEALED_IMAGE_COUNT,
+            variables: { userId },
+        })
+
+        return data.images.length
+    } catch (error) {
+        console.error('Error fetching user revealed image count:', error.message)
+        return -1
+    }
+}
+        
+export async function getUserDetectedCriminalCount(userId) {
+    try {
+        const GET_USER_DETECTED_CRIMINAL_COUNT = gql`
+            query GetUserDetectedCriminalCount($userId: Bytes!) {
+                faceDetectionEvents(
+                    where: {
+                        user: $userId
+                    }
+                ) {
+                    id
+                }
+            }
+        `
+        const { data } = await client.query({
+            query: GET_USER_DETECTED_CRIMINAL_COUNT,
+            variables: { userId },
+        })
+
+        return data.faceDetectionEvents.length
+    } catch (error) {
+        console.error('Error fetching user detected criminal count:', error.message)
+        return -1
     }
 }
 

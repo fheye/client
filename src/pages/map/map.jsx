@@ -7,7 +7,7 @@ import '../../styles/map.css'
 const INITIAL_ZOOM = 10.12
 const DEFAULT_CENTER = [100.5018, 13.7563] // Bangkok center
 
-export default function MapBox({ coordinates = [] }) {
+export default function MapBox({ coordinates = [], informations = [] }) {
     const mapRef = useRef(null)
     const mapContainerRef = useRef(null)
 
@@ -98,41 +98,52 @@ export default function MapBox({ coordinates = [] }) {
         const handleResize = () => {
             if (mapRef?.current) {
                 try {
-                    mapRef.current.resize();
-                } catch (error) {
-                }
+                    mapRef.current.resize()
+                } catch (error) {}
             }
-        };
-        const resizeObserver = new ResizeObserver(() => handleResize());
+        }
+        const resizeObserver = new ResizeObserver(() => handleResize())
         if (mapContainerRef.current) {
-            resizeObserver.observe(mapContainerRef.current);
+            resizeObserver.observe(mapContainerRef.current)
         }
 
         return () => {
             if (mapRef?.current) {
                 try {
-                    mapRef.current.remove();
-                } catch (error) {
-                }
+                    mapRef.current.remove()
+                } catch (error) {}
             }
-            if (resizeObserver) resizeObserver.disconnect();
-        };
-    }, []);
+            if (resizeObserver) resizeObserver.disconnect()
+        }
+    }, [])
 
-    const updateLocation = () => {
-
-    }
-
+    const updateLocation = () => {}
 
     return (
         <>
             {center && (
                 <>
-                    <div className="sidebar">
+                    <div className="left-sidebar">
                         Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)}
-                        <button onClick={updateLocation} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Update Location</button>
+                        <button
+                            onClick={updateLocation}
+                            type="button"
+                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                        >
+                            Update Location
+                        </button>
                     </div>
                 </>
+            )}
+            {center && (
+                <div className="right-sidebar">
+                    {informations.map((info, index) => (
+                        <div key={index} className="my-2">
+                            <h3>{info.title}</h3>
+                            <p>{info.body}</p>
+                        </div>
+                    ))}
+                </div>
             )}
             <div id="map-container" ref={mapContainerRef} />
         </>

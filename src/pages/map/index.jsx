@@ -3,7 +3,7 @@ import '../../styles/map.css'
 import MapBox from './map'
 import { useEffect, useState } from 'react'
 import { faFaceSmileBeam, faFaceMeh, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
-import { getCloseCriminals } from '../../utils'
+import { getCloseCriminalCount, getCloseCriminals, getLatestActivityFeeds, getUserDetectedCriminalCount, getUserRevealedImageCount, getUserUploadedImageCount } from '../../utils'
 
 const EmojiStates = {
     HAPPY: "HAPPY",
@@ -16,12 +16,65 @@ export default function Map() {
     const [emojiState, setEmojiState] = useState(EmojiStates.HAPPY);
     const [coordinates, setCoordinates] = useState([]);
     const [userLocation, setUserLocation] = useState(null);
+    const [informations , setInformations] = useState([])
 
     const emojiIcons = {
         [EmojiStates.HAPPY]: faFaceSmileBeam,
         [EmojiStates.NORMAL]: faFaceMeh,
         [EmojiStates.SAD]: faFaceFrown,
     };
+
+    const getInformations = async () => {
+        const promises = [];
+        const locationNorm = userLocation.map((coord) => Math.round(coord * 100));
+        const walletAddress = localStorage.getItem('walletAddress');
+
+        promises.push(getCloseCriminalCount(locationNorm[0], locationNorm[1], 8));
+        promises.push(getCloseCriminalCount(locationNorm[0], locationNorm[1], 24));
+        if (walletAddress && walletAddress.length > 0) {
+            promises.push(getUserUploadedImageCount(walletAddress));
+            promises.push(getUserRevealedImageCount(walletAddress));
+            promises.push(getUserDetectedCriminalCount(walletAddress));
+        }
+
+        return Promise.all(promises).then((data) => {
+            const criminalCount8 = data[0];
+            const criminalCount24 = data[1];
+            const userUploadedImageCount = data[2];
+            const userRevealedImageCount = data[3];
+            const userDetectedCriminalCount = data[4];
+
+            const newInformations = [
+                {
+                    title: 'Criminals Nearby',
+                    body: `${criminalCount8} criminals within 10km.`,
+                },
+                {
+                    title: 'Criminals Nearby',
+                    body: `${criminalCount24} criminals within 30km.`,
+                }
+            ];
+
+            if (walletAddress && walletAddress.length > 0) {
+                newInformations.push({
+                    title: 'Your Uploads',
+                    body: `Uploaded ${userUploadedImageCount} images.`,
+                });
+
+                newInformations.push({
+                    title: 'Your Revealed Images',
+                    body: `Revealed ${userRevealedImageCount} images.`,
+                });
+
+                newInformations.push({
+                    title: 'Detected Criminals',
+                    body: `Revealed ${userDetectedCriminalCount} criminals.`,
+                });
+            }
+
+            return newInformations;
+        })
+    }
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -40,7 +93,7 @@ export default function Map() {
                                 lng: item.locationX / 100,
                                 lat: item.locationY / 100,
                                 title: 'Criminal',
-                                body: `Last seen: ${new Date(item.timestamp).toLocaleString()}`,
+                                body: `Last seen: ${new Date(item.timestamp * 1000).toLocaleString()}`,
                             }))
                         )
                     })
@@ -53,6 +106,14 @@ export default function Map() {
             console.error('Geolocation is not supported by this browser.')
         }
     }, [])
+
+    useEffect(() => {
+        if (!userLocation) return
+    
+        getInformations().then((data) => {
+            setInformations(data)
+        })
+    }, [userLocation])
 
     return (
         <div className='flex flex-col justify-center items-center w-full h-full'>
@@ -73,7 +134,7 @@ export default function Map() {
                     className={`p-2 mr-4 rounded-xl w-[70%] h-full relative`}
 
                 >
-                    <MapBox id="map-container" coordinates={coordinates} />
+                    <MapBox id="map-container" coordinates={coordinates} informations={informations} />
                 </div>
                 <div className='w-[20%] h-full rounded-xl px-4 relative m-4 bg-dashboardGradient shadow-dashboard-shadow flex flex-col justify-evenly items-center text-customWhite'>
                     <div className='flex flex-col text-xl text-center'>

@@ -9,9 +9,11 @@ export default function Navbar() {
 
         if (res.length > 0) {
             setWalletAddress(res[0]);
+            localStorage.setItem('walletAddress', res[0]);
 
             window.ethereum.on('accountsChanged', function (accounts) {
                 setWalletAddress(accounts[0]);
+                localStorage.setItem('walletAddress', accounts[0]);
             }
             );
 
@@ -29,6 +31,7 @@ export default function Navbar() {
 
     async function onDisconnectWallet() {
         setWalletAddress('');
+        localStorage.removeItem('walletAddress');
     }
 
     return (
