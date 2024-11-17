@@ -128,7 +128,7 @@ export default function Uploader() {
                 <span className='text-xs mt-auto mb-6 mx-auto'>YOUR SAFETY IS THE KEY</span>
             </div>
             <div className='w-[15dvw] h-1/2 flex flex-col'>
-                <ImageUpload images={images} setImages={setImages} />
+                <ImageUpload images={images} setImages={setImages} videoBackground={true}/>
                 <button
                     onClick={handleSubmit}
                     className="bg-customLight w-full text-customWhite text-xl px-4 py-2 my-2 rounded-lg relative shadow shadow-video bg-[#ffffff] rounded-lg"

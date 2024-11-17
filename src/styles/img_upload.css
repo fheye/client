@@ -1,0 +1,14 @@
+.arrow-animation {
+    animation: slideUpFadeOut 2s forwards;
+}
+
+@keyframes slideUpFadeOut {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, 0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -80px);
+    }
+}

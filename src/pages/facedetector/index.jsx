@@ -122,7 +122,6 @@ export default function FaceDetector() {
 
     return (
         <>
-            {/* <Notifications />    */}
             < div className='relative w-full h-full flex justify-center items-center' >
                 <video
                     className="absolute top-0 left-0 w-full h-full object-cover rounded-lg mix-blend-lighten"
@@ -146,29 +145,19 @@ export default function FaceDetector() {
                         <button
                             disabled={!hasMatch}
                             onClick={handleReveal}
-                            className={`bg-blue-500 rounded-xl text-white text-xl w-5/6 h-[6dvh] px-4 transition ${!hasMatch ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
+                            className={`text-white text-left text-xl w-5/6 h-[6dvh] px-4 transition ${!hasMatch ? 'opacity-50' : ''
                                 }`}
                         >
-                            Reveal Metadata
+                            {'Reveal Key >'}
                         </button>
                     </div>
                     <div className='w-[15dvw] h-1/2 px-4'>
-                        <ImageUpload images={images} setImages={setImages} />
+                        <ImageUpload images={images} setImages={setImages} videoBackground={false} />
                         <button
                             onClick={handleSubmit}
-                            className="bg-customLight w-full text-customWhite text-xl px-4 py-2 my-2 rounded-lg relative bg-[#ffffff] rounded-lg"
+                            className="bg-customLight w-full text-customWhite text-xl px-4 py-2 my-2 rounded-lg relative bg-uploadGradient shadow-facedetector-shadow rounded-lg"
                         >
-                            <video
-                                className="absolute top-0 left-0 w-full h-full object-cover rounded-lg mix-blend-luminosity"
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                            >
-                                <source src="/bluebg.mp4" type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
-                            <span className="relative z-10">submit</span>
+                            <span className="relative z-10">Submit</span>
                         </button>
                     </div>
                 </div>
